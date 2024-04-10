@@ -9,7 +9,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
 import Modal from "@mui/material/Modal";
 import ClearIcon from '@mui/icons-material/Clear';
-import { storage } from "../firebase";
+import { db, storage } from "../firebase";
+import firebase from 'firebase';
 
 const SideBar = ({ sidebar }) => {
   const [open, setOpen] = useState(false);
@@ -32,7 +33,20 @@ const SideBar = ({ sidebar }) => {
     event.preventDefault();
     setUploading(true);
 
-    storage.ref(`files/${file.name}`)
+    storage.ref(`files/${file.name}`).put(file).then(snapshot => {
+      storage.ref("files").child(file.name).getDownloadURL().then(url => {
+        db.collection("myfiles").add({
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          filename: file.name,
+          fileURL : url,
+          size: snapshot._delegate.bytesTransferred
+        })
+
+        setUploading(false);
+        setFile(null);
+        setOpen(false);
+      })
+    })
 
   }
 

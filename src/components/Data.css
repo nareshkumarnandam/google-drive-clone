@@ -18,6 +18,7 @@
 }
 .data_grid{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -26,27 +27,37 @@
     text-align: center;
     border: 1px solid lightgray;
     margin: 10px;
-    min-width: 200px ;
+    width: 230px ;
     padding: 10px 0px 0px 0px;
     border-radius: 5px;
+    object-fit: contain;
+}
+.data___file img{
+    width: 230px;
+    height: 100px;
+    object-fit: cover;
 }
 .data___file svg{
     font-size: 60px;
     color: gray;
 }
-.data___file p{
+.data___file a p{
     border-top: 1px solid #ccc;
     margin-top: 5px;
     font-size: 12px;
     background-color: whitesmoke;
     padding: 10px 0px;
+    text-wrap: balance;
+    word-wrap: break-word
 }
 .detailsRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: 35% 25% 25% 15%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-bottom: 1px solid #ccc;
     padding: 10px;
+    text-align: center;
 }
 .detailsRow p {
     display: flex;
@@ -61,4 +72,13 @@
 .detailsRow p svg{
     font-size: 22px;
     margin: 10px;
+}
+a {
+    color: gray;
+    text-decoration: none;
+    outline: 0;
+    transition: all .2s;
+}
+a:hover{
+    color: black;
 }

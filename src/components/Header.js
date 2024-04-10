@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import MenuIcon from '@mui/icons-material/Menu';
 
 
-const Header = ({setSidebar}) => {
+const Header = ({setSidebar, photoURL}) => {
   return (
     <div className='header'>
         
@@ -30,7 +30,7 @@ const Header = ({setSidebar}) => {
                 <AppsIcon />
             </span>
             <span>
-                <Avatar />
+                <Avatar src={photoURL} />
             </span>
         </div>
     </div>

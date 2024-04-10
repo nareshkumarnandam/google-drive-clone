@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Data.css';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
+import { db } from '../firebase';
 
 const Data = () => {
+
+    const [files, setFiles] = useState([]);
+    
+    useEffect(() => {
+        db.collection("myfiles").onSnapshot(snapshot => {
+            setFiles(snapshot.docs.map(doc => ({
+                id: doc.id,
+                data: doc.data()
+            })))
+        })
+    }, []);
+
+    
+function formatBytes(bytes, decimals = 2) { 
+    if(bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes' , 'KB' , 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k , i)).toFixed(dm))+' '+sizes[i];
+} 
+
   return (
     <div className='data'>
         <div className='data__header'>
@@ -22,22 +46,15 @@ const Data = () => {
 
         <div className='data__content'>
             <div className='data_grid'>
-                <div className='data___file'>
-                    <InsertDriveFileIcon />
-                    <p>File Name</p>
-                </div>
-                <div className='data___file'>
-                    <InsertDriveFileIcon />
-                    <p>File Name</p>
-                </div>
-                <div className='data___file'>
-                    <InsertDriveFileIcon />
-                    <p>File Name</p>
-                </div>
-                <div className='data___file'>
-                    <InsertDriveFileIcon />
-                    <p>File Name</p>
-                </div>
+                {
+                    files.map((file) => {
+                        return <div className='data___file'>
+                        {/* <InsertDriveFileIcon /> */}
+                        <img src={file.data.fileURL}/>
+                        <a href={file.data.fileURL}><p>{file.data.filename}</p></a>
+                    </div>
+                    })
+                }
 
             </div>
             <div className='data_list'>
@@ -47,13 +64,21 @@ const Data = () => {
                     <p><b>Last Modified</b></p>
                     <p><b>File Size</b></p>
                 </div>
-
-                <div className='detailsRow'>
-                    <p><InsertDriveFileIcon /> Name</p>
-                    <p>Me</p>
-                    <p>Yesterday</p>
-                    <p>1 GB</p>
-                </div>
+                {
+                    files.map((file) => {
+                        return (
+                            <div className='detailsRow'>
+                                <a href={file.data.fileURL} target='_blank'>
+                                <p><InsertDriveFileIcon /> {file.data.filename}</p>
+                                </a>
+                                <p>Me</p>
+                                <p>{new Date(file.data.timestamp?.seconds*1000).toUTCString()}</p>
+                                <p>{formatBytes(file.data.size)}</p>
+                            </div>
+                        )
+                    })
+                }
+                
             </div>
         </div>
     </div>
