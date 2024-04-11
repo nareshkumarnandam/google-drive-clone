@@ -52,7 +52,7 @@
 }
 .detailsRow {
     display: grid;
-    grid-template-columns: 35% 25% 25% 15%;
+    grid-template-columns: 30% 25% 25% 10% 10%;
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 1px solid #ccc;
@@ -81,4 +81,101 @@ a {
 }
 a:hover{
     color: black;
+}
+.moreOptions{
+    width: 40px;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+.overlay{
+    background-color: rgb(238, 238, 238);
+    border-radius: 5px;
+    width: 100px;
+    padding: 0;
+}
+.overlay button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+    margin: 0;
+    width: 80px;
+}
+Menu, #long-menu{
+    box-shadow: none;
+}
+IconButton{
+    box-shadow: none;
+}
+
+@media screen and (min-width: 240px) and (max-width: 700px) {
+    .data__header{
+        width: 70%;
+        justify-content: space-between;
+
+    } 
+    .data_list .detailsRow{
+        gap: 2px;
+        display: grid;
+        grid-template-columns: 32% 16% 25% 10% 10%;
+        font-size: 10px;
+    }
+    .data_list .detailsRow p b{
+        font: 8px;
+       
+    }
+    .detailsRow {
+        display: grid;
+        grid-template-columns: 30% 15% 15% 10% 10%;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: 1px solid #ccc;
+        padding: 0px;
+        text-align: center;
+        width: 70%;
+        gap: 10px;
+        text-wrap: balance;
+        word-wrap: break-word;
+    }
+    .detailsRow a {
+        padding-left: -10px;
+        text-wrap: balance;
+        word-wrap: break-word;
+        display: flex;
+        flex-wrap: wrap;
+        text-wrap: wrap;
+        word-wrap: break-word;
+        width: 40%;
+    }
+    .detailsRow a p{
+        
+        font-size: 10px;
+        position: relative;
+        text-wrap: wrap;
+        word-wrap: break-word;
+    }
+    .detailsRow p{
+        width: 50%;
+        font-size: 12px;
+        position: relative;
+        text-wrap: balance;
+        word-wrap: break-word;
+    }
+    .detailsRow a p svg{
+        margin: 0;
+        margin-right: 2px;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 900px) {
+    .data{
+        width: 100vw;
+    }
+    .data__header{
+        width: 100%;
+        justify-content: space-between;
+
+    } 
 }

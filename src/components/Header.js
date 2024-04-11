@@ -24,7 +24,7 @@ const Header = ({setSidebar, photoURL}) => {
             <FormatAlignCenterIcon />
         </div>
         <div className='header__icons'>
-            <span>
+            <span className='headerIcons'>
                 <HelpOutlineOutlinedIcon />
                 <SettingsIcon />
                 <AppsIcon />

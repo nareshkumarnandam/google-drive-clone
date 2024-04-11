@@ -147,3 +147,25 @@ input.submit_btn{
     margin: 20px 10px;
     border-radius: 5px;
 }
+@media screen and (min-width: 240px) and (max-width: 900px){
+    .small_sidebar{
+        width: 15%;
+    }
+    .modal__pop{
+        top: 20%;
+    background-color: #fff;
+    width: 250px;
+    margin: 0px 20px;
+    position: relative;
+    transform: translateY(0%);
+    padding: 10px;
+    border-radius: 10px;
+    }
+    .modalHeading{
+        height: 50px;
+    }
+    .modalHeading button{
+        top: -2%;
+        left: 0%;
+    }
+}
