@@ -13,12 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { db } from "../firebase";
 
-const options = ["Download", "Trash"];
 
 const ITEM_HEIGHT = 48;
 
 const Data = () => {
   const [files, setFiles] = useState([]);
+
+  const [fileUrl, setFileUrl] = useState(''); 
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -29,10 +30,30 @@ const Data = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (option) => {
-    setSelected(option);
-    console.log(selected);
+ 
+  const handleMenuItemClick = (option, file) => {
+    if (option === "Download") {
+      downloadFile(file.data.fileURL, file.data.filename);
+    } else if (option === "Trash") {
+      deleteFile(file);
+    }
     handleClose();
+  };
+
+  const downloadFile = (fileUrl, fileName) => {
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName;
+    link.click();
+  };
+
+
+  const deleteFile = async (file) => {
+    try {
+      await db.collection("myfiles").doc(file.id).delete();
+    } catch (error) {
+      console.error("Error deleting file: ", error);
+    }
   };
 
   const handleClose = () => {
@@ -106,7 +127,7 @@ const Data = () => {
           </div>
           {files.map((file) => {
             return (
-              <div key={files.id} className="detailsRow">
+              <div key={file.id} className="detailsRow">
                 <a href={file.data.fileURL} target="_blank">
                   <p>
                     <InsertDriveFileIcon /> {file.data.filename}
@@ -145,15 +166,9 @@ const Data = () => {
                       },
                     }}
                   >
-                    {options.map((option) => (
-                      <MenuItem
-                        key={option}
-                        selected={option === "Pyxis"}
-                        onClick={() => handleMenuItemClick(option) }
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
+                    
+                    <MenuItem onClick={() => handleMenuItemClick("Download", file)}>Download</MenuItem>
+                    <MenuItem onClick={() => handleMenuItemClick("Trash", file)}>Trash</MenuItem>
                   </Menu>
                 </div>
               </div>

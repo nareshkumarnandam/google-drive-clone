@@ -28,6 +28,7 @@
     border: 1px solid lightgray;
     margin: 10px;
     width: 230px ;
+    height: 160px;
     padding: 10px 0px 0px 0px;
     border-radius: 5px;
     object-fit: contain;
@@ -45,10 +46,12 @@
     border-top: 1px solid #ccc;
     margin-top: 5px;
     font-size: 12px;
+    text-align: center;
     background-color: whitesmoke;
-    padding: 10px 0px;
+    padding: 5px 0px;
     text-wrap: balance;
-    word-wrap: break-word
+    word-wrap: break-word;
+    height: 40px;
 }
 .detailsRow {
     display: grid;
